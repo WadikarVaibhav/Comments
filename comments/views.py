@@ -1,12 +1,7 @@
-from django.shortcuts import render
-from django.template import loader
-from django.http import HttpResponse
+from rest_framework import generics
 from .models import Posts, Users, Comments
+from .serializers import PostSerializer
 
-def getPosts(request):
-    posts = Posts.objects.all();
-    template = loader.get_template('index.html')
-    context = {
-        'posts': posts
-    }
-    return HttpResponse(template.render(context, request))
+class PostsList(generics.ListCreateAPIView):
+    queryset = Posts.objects.all()
+    serializer_class = PostSerializer

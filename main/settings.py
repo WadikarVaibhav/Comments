@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'comments.apps.CommentsConfig',
     'rest_framework',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [

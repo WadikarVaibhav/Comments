@@ -3,7 +3,7 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    "./static/comments/js/Posts"
+    "./static/comments/js/posts"
   ],
   output: {
   //  path: path.join(__dirname, 'build'),
