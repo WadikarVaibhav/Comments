@@ -18,7 +18,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js|\.jsx?/,
-        loaders: ['babel'],
+        loaders: ['babel', 'babel-loader'],
         include: path.join(__dirname, './static/comments/js'),
       },
       {
