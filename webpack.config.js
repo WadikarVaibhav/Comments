@@ -2,24 +2,25 @@ var path = require('path');
 var webpack = require('webpack');
 
 module.exports = {
-  entry: [
-    "./static/comments/js/posts"
-  ],
+
+  entry: path.resolve(__dirname, 'components') + '/posts.jsx',
+
   output: {
-  //  path: path.join(__dirname, 'build'),
-    path: path.join(__dirname, './static/comments/build/'),
-    filename: "bundle.js",
-    publicPath: './static/comments/build/'
+      path: path.resolve(__dirname, 'build') + '/app',
+      filename: 'bundle.js',
+      publicPath: '/app/'
   },
+
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['.js', '.jsx']
   },
+
   module: {
     loaders: [
       {
         test: /\.js|\.jsx?/,
-        loaders: ['babel', 'babel-loader'],
-        include: path.join(__dirname, './static/comments/js'),
+        loaders: 'babel-loader',
+        include: path.resolve(__dirname, 'components')
       },
       {
         test: /\.css|\.less$/,
