@@ -2,11 +2,11 @@
   "name": "comments",
   "version": "1.0.0",
   "description": "",
-  "main": "posts.jsx",
+  "main": "Home.jsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npm run build",
-    "build": "webpack -d && webpack-dev-server --inline --hot"
+    "build": "webpack -d && webpack-dev-server --inline --hot  --history-api-fallback"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,8 @@
   "homepage": "https://github.com/WadikarVaibhav/Comments#readme",
   "dependencies": {
     "react": "^15.6.1",
-    "react-dom": "^15.6.1"
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2"
   },
   "devDependencies": {
     "babel-core": "^6.25.0",
