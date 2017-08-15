@@ -17,3 +17,11 @@ def getParentComments(request):
         comments = serializers.serialize("json", comments)
         print(comments)
     return HttpResponse(comments, content_type="application/json")
+
+def getChildComments(request):
+    if request.method == 'GET':
+        parentId = request.GET.get('parentId', None);
+        comments = Comments.objects.filter(parent_id = parentId)
+        comments = serializers.serialize("json", comments)
+        print(comments)
+    return HttpResponse(comments, content_type="application/json")

@@ -5,5 +5,6 @@ from comments import views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^posts/', views.getPosts),
-    url(r'^comments/', views.getParentComments),
+    url(r'^parentComments/', views.getParentComments),
+    url(r'^childComments/', views.getChildComments),
 ]

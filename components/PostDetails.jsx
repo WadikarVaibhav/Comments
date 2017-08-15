@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import Child from './Child.jsx';
 
 export default class PostDetails extends React.Component {
 
@@ -14,7 +15,27 @@ export default class PostDetails extends React.Component {
   showParentComments(postId) {
     var postId = parseInt(postId);
     $.ajax({
-      url: 'http://127.0.0.1:8000/comments/',
+      url: 'http://127.0.0.1:8000/parentComments/',
+      datatype: 'json',
+      cache: false,
+      data: {
+        postId: postId,
+      },
+      error: function() {
+        alert('Error!')
+      },
+      success: function(response) {
+        this.setState ({
+          parentComments: response
+        })
+      }.bind(this)
+    })
+  }
+
+  showChildComments(parentId) {
+    var parentId = parseInt(parentId);
+    $.ajax({
+      url: 'http://127.0.0.1:8000/childComments/',
       datatype: 'json',
       cache: false,
       data: {
@@ -33,7 +54,12 @@ export default class PostDetails extends React.Component {
 
   render() {
     var parentCommentsList = this.state.parentComments.map(function (comment) {
-      return <li key= {comment.pk}> {comment.fields.comment} </li>
+      return (
+        <div>
+            <li key= {comment.pk}> {comment.fields.comment} </li>
+            <Child parentId={comment.pk} />
+        </div>
+      )
     }, this)
 
     var post = this.props.location.state.post;
