@@ -1,27 +1,28 @@
 from rest_framework import generics
-from .models import Posts, Users, Comments
+from .models import posts, users, comments
 from django.http import HttpResponse
 from django.http import JsonResponse
 from django.core import serializers
 
 def getPosts(request):
     if request.method == 'GET':
-        posts = Posts.objects.all();
-        posts = serializers.serialize("json", posts)
-    return HttpResponse(posts, content_type="application/json")
+        print("here")
+        postsList = posts.objects.all();
+        postsList = serializers.serialize("json", postsList)
+    return HttpResponse(postsList, content_type="application/json")
 
 def getParentComments(request):
     if request.method == 'GET':
         postId = request.GET.get('postId', None);
-        comments = Comments.objects.filter(post_id = postId).filter(parent_id = None)
-        comments = serializers.serialize("json", comments)
-        print(comments)
-    return HttpResponse(comments, content_type="application/json")
+        commentsList = comments.objects.filter(post_id = postId).filter(parent_id = None)
+        commentsList = serializers.serialize("json", commentsList)
+        print(commentsList)
+    return HttpResponse(commentsList, content_type="application/json")
 
 def getChildComments(request):
     if request.method == 'GET':
         parentId = request.GET.get('parentId', None);
-        comments = Comments.objects.filter(parent_id = parentId)
-        comments = serializers.serialize("json", comments)
-        print(comments)
-    return HttpResponse(comments, content_type="application/json")
+        commentsList = comments.objects.filter(parent_id = parentId)
+        commentsList = serializers.serialize("json", commentsList)
+        print(commentsList)
+    return HttpResponse(commentsList, content_type="application/json")
