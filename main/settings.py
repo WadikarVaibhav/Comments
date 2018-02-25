@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'comments.apps.CommentsConfig',
-    'rest_framework',
     'webpack_loader',
 ]
 

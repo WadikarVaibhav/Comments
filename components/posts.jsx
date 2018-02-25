@@ -1,20 +1,20 @@
 import React from 'react';
-import $ from 'jquery';
-import { Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import $ from 'jquery'
 
 export default class Posts extends React.Component {
   constructor() {
     super();
     this.state ={
-      posts: [],
+      posts: '',
     }
   }
 
   componentDidMount() {
-    this.loadPostsFromServer();
+    this.getAllPosts();
   }
 
-  loadPostsFromServer() {
+  getAllPosts() {
     $.ajax({
       url: 'http://127.0.0.1:8000/posts/',
       datatype: 'json',
@@ -23,9 +23,9 @@ export default class Posts extends React.Component {
         alert('Error!')
       },
       success: function(response) {
-        this.setState ({
-          posts: response
-        })
+         this.setState ({
+           posts: 'Hello'
+         })
       }.bind(this)
     })
   }
@@ -33,14 +33,12 @@ export default class Posts extends React.Component {
 
   render() {
 
-    var postList = this.state.posts.map(function (post) {
-      return <li key= {post.pk}><Link to={{ pathname: '/posts/'+post.pk, state: { id: post.pk, post: post.fields.post } }}> {post.fields.post} </Link></li>
-    }, this)
-
     return (
       <div>
-        {postList}
+        {this.state.posts}
       </div>
     );
   }
 }
+
+ReactDOM.render(<Posts/>, document.getElementById("container"));
