@@ -16,19 +16,19 @@ export default class Posts extends React.Component {
 
   getAllPosts() {
     $.ajax({
-      url: 'http://127.0.0.1:8000/posts/',
-      datatype: 'json',
-      cache: false,
-      error: function() {
-        alert('Error!')
-      },
-      success: function(response) {
-         this.setState ({
-           posts: response
-         })
-      }.bind(this)
-    })
-  }
+        url: 'http://127.0.0.1:8000/posts/',
+        datatype: 'json',
+        cache: false,
+        error: function() {
+          alert('Error!')
+        },
+        success: function(response) {
+           this.setState ({
+             posts: response
+           })
+        }.bind(this)
+      })
+    }
 
 
   render() {
