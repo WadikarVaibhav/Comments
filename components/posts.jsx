@@ -6,7 +6,7 @@ export default class Posts extends React.Component {
   constructor() {
     super();
     this.state ={
-      posts: '',
+      posts: [],
     }
   }
 
@@ -24,7 +24,7 @@ export default class Posts extends React.Component {
       },
       success: function(response) {
          this.setState ({
-           posts: 'Hello'
+           posts: response
          })
       }.bind(this)
     })
@@ -33,9 +33,14 @@ export default class Posts extends React.Component {
 
   render() {
 
+    var postList = this.state.posts.map(function (post) {
+      return <li key= {post.pk}> {post.fields.post} </li>
+      return <li key= {post.pk}><Link to={{ pathname: '/posts/'+post.pk, state: { id: post.pk, post: post.fields.post } }}> {post.fields.post} </Link></li>
+     }, this)
+
     return (
       <div>
-        {this.state.posts}
+        {postList}
       </div>
     );
   }

@@ -26,4 +26,4 @@ class Comments(models.Model):
     likes = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.comment +' '+ str(self.comment_id)
+        return self.comment +'---> parent id: '+str(self.parent_id) 
