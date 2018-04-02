@@ -10,12 +10,17 @@ def getPosts(request):
         postsList = serializers.serialize("json", postsList)
         return HttpResponse(postsList, content_type="application/json")
 
-def getParentComments(request):
+def getComments(request):
      if request.method == 'GET':
         parentId = request.GET.get('parentId', None);
         postId = request.GET.get('postId', None);
+        print('parent id: ');
         print(parentId);
+        print('post id: ');
         print(postId);
-        parentComments = Comments.objects.filter(post_id = postId).filter(parent_id__isnull=True).only('comment')
-        parentComments = serializers.serialize("json", parentComments)
-        return HttpResponse(parentComments, content_type="application/json")
+        if parentId == '0':
+            comments = Comments.objects.filter(post_id = postId).filter(parent_id__isnull=True).only('comment')
+        else :
+            comments = Comments.objects.filter(post_id = postId).filter(parent_id = parentId).only('comment')
+        comments = serializers.serialize("json", comments)
+        return HttpResponse(comments, content_type="application/json")
