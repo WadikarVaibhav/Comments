@@ -8,6 +8,13 @@ export default class Comment extends React.Component {
     super();
     this.state ={
       comments: [],
+      replyBoxWidth: 0,
+      replyBoxVisibility: 'hidden',
+      replyButtonVisibility: 'hidden',
+      replyButtonWidth: 0,
+      commentLinkVisibility: 'visible',
+      replyLinkVisibility: 'visible',
+      reply: ''
     }
   }
 
@@ -33,18 +40,87 @@ export default class Comment extends React.Component {
       })
   }
 
-  render() {
-    console.log('child comments are : ');
-    console.log(this.state.comments);
+  expandReplyBox(commentId) {
+    this.setState({
+      replyBoxWidth: 300,
+      replyBoxVisibility: 'visible',
+      replyButtonWidth: 60,
+      replyButtonVisibility: 'visible',
+      commentLinkVisibility: 'hidden',
+      replyLinkVisibility: 'hidden',
+    })
+  }
 
+  replyComment(parentId, postId, reply) {
+    console.log('comment reply');
+    $.ajax({
+        url: 'http://127.0.0.1:8000/reply/',
+        datatype: 'json',
+        type: 'POST',
+        data: {
+          postId: postId,
+          parentId: parentId,
+          reply: reply
+        },
+        cache: false,
+        error: function() {
+          alert('Error!')
+        },
+        success: function(response) {
+            alert('Comment successfully posted!')
+        }.bind(this)
+      })
+  }
+
+  onChange(e) {
+    this.setState({
+      reply: e.target.value
+    })
+  }
+
+  render() {
     var comments = this.state.comments;
+
+    const replyBoxStyle = {
+      width: this.state.replyBoxWidth,
+      visibility: this.state.replyBoxVisibility
+    }
+
+    const replyButtonStyle= {
+      width: this.state.replyButtonWidth,
+      visibility: this.state.replyButtonVisibility
+    }
+
+    const commentLinkStyle = {
+      cursor: 'pointer',
+      color: "#0000FF",
+      textDecoration: 'underline',
+      marginRight: '10px',
+      visibility: this.state.commentLinkVisibility,
+    }
+
+    const replyLinkStyle = {
+      cursor: 'pointer',
+      color: "#0000FF",
+      textDecoration: 'underline',
+      visibility: this.state.replyLinkVisibility,
+    }
 
     return(
       <li key = {this.props.comment.pk}>
         {this.props.comment.fields.comment}
         <br/>
-        <a onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)}
-            style={{cursor: 'pointer', color: "#0000FF", textDecoration: 'underline'}}>comments
+
+        <input type = "text" id={this.props.comment.pk} value={this.state.reply} onChange= {this.onChange.bind(this)} style={replyBoxStyle}/>
+
+        <button onClick={this.replyComment.bind(this, this.props.comment.pk, this.props.postId, this.state.reply)} style={replyButtonStyle}>Reply</button>
+
+        <a id={'commentsLink'+this.props.comment.pk} onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)}
+            style={commentLinkStyle}>Comments
+        </a>
+
+        <a id={'repliesLink'+this.props.comment.pk} onClick={this.expandReplyBox.bind(this, this.props.comment.pk)}
+            style={replyLinkStyle}>Reply
         </a>
         <Comments CommentObject={comments} post= {this.props.postId}/>
       </li>
