@@ -51,16 +51,16 @@ export default class Comment extends React.Component {
     })
   }
 
-  replyComment(parentId, postId, reply) {
+  replyComment(parentId, postId, comment) {
     console.log('comment reply');
     $.ajax({
-        url: 'http://127.0.0.1:8000/reply/',
+        url: 'http://127.0.0.1:8000/postComment/',
         datatype: 'json',
         type: 'POST',
         data: {
           postId: postId,
           parentId: parentId,
-          reply: reply
+          comment: comment
         },
         cache: false,
         error: function() {

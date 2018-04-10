@@ -28,17 +28,18 @@ def getComments(request):
         return HttpResponse(comments, content_type="application/json")
 
 @csrf_exempt
-def postReply(request):
+def postComment(request):
     if request.method == 'POST':
         parentId = request.POST.get('parentId', None);
         postId = request.POST.get('postId', None);
         postId = (int) (postId);
         parentId = (int) (parentId);
-        reply = request.POST.get('reply', None);
+        comment = request.POST.get('comment', None);
         data = Comments();
-        data.comment = reply;
+        data.comment = comment;
         data.post_id = Posts.objects.get(pk=postId);
-        data.parent_id = Comments.objects.get(comment_id = parentId);
+        if parentId != 0:
+            data.parent_id = Comments.objects.get(comment_id = parentId);
         data.likes = 0;
         data.date_created = datetime.now();
         data.date_modified = datetime.now();

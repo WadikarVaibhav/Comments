@@ -8,6 +8,7 @@ export default class PostDetails extends React.Component {
     super();
     this.state ={
       parentComments: [],
+      parentComment: '',
     }
   }
 
@@ -33,6 +34,37 @@ export default class PostDetails extends React.Component {
       })
   }
 
+  onChange(e) {
+    this.setState({
+      parentComment: e.target.value
+    })
+  }
+
+  postComment(parentId, postId, comment) {
+    console.log('comment reply');
+    $.ajax({
+        url: 'http://127.0.0.1:8000/postComment/',
+        datatype: 'json',
+        type: 'POST',
+        data: {
+          postId: postId,
+          parentId: parentId,
+          comment: comment
+        },
+        cache: false,
+        error: function() {
+          alert('Error!')
+        },
+        success: function(response) {
+            
+            this.setState({
+              parentComment: ''
+            })
+            this.getParentComments(parentId, postId);
+        }.bind(this)
+      })
+  }
+
   render() {
     console.log(this.props);
     var parentComments = this.state.parentComments;
@@ -43,6 +75,9 @@ export default class PostDetails extends React.Component {
         {this.props.location.state.post}
         <br/>
         <a onClick={this.getParentComments.bind(this, 0, postId)} style={{cursor: 'pointer', color: "#0000FF", textDecoration: 'underline'}}>comments</a>
+        <br/>
+        <input type ="text" value={this.state.parentComment} onChange= {this.onChange.bind(this)}/>
+        <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment)} >Comment</button>
         <Comments CommentObject={parentComments} post= {postId}/>
       </div>
     );
