@@ -10,8 +10,8 @@ export default class Comments extends React.Component {
         }, this)
       return (
         <div>
-          <ul>
-            {commentsList}
+          <ul>        
+              {commentsList}
           </ul>
         </div>
       );

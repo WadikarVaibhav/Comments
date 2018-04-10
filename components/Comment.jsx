@@ -67,7 +67,16 @@ export default class Comment extends React.Component {
           alert('Error!')
         },
         success: function(response) {
-            alert('Comment successfully posted!')
+            this.setState({
+              replyBoxVisibility: 'hidden',
+              replyButtonVisibility: 'hidden',
+              commentLinkVisibility: 'visible',
+              replyLinkVisibility: 'visible',
+              replyBoxWidth: 0,
+              replyButtonWidth: 0,
+              reply: ''
+            })
+            this.getComments(parentId, postId);
         }.bind(this)
       })
   }
@@ -122,7 +131,9 @@ export default class Comment extends React.Component {
         <a id={'repliesLink'+this.props.comment.pk} onClick={this.expandReplyBox.bind(this, this.props.comment.pk)}
             style={replyLinkStyle}>Reply
         </a>
+
         <Comments CommentObject={comments} post= {this.props.postId}/>
+
       </li>
     )
   }
