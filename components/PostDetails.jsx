@@ -56,7 +56,6 @@ export default class PostDetails extends React.Component {
           alert('Error!')
         },
         success: function(response) {
-            
             this.setState({
               parentComment: ''
             })

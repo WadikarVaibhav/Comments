@@ -2,7 +2,11 @@ from django.db import models
 
 class Users(models.Model):
     user_id = models.AutoField(primary_key = True)
-    user_name = models.CharField(max_length = 20)
+    user_name = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
+    firstname = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
+    lastname = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
+    password = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
+    emailId = models.CharField(max_length = 30, null =False, blank=False, default='abc@gmail.com')
 
     def __str__(self):
         return self.user_name + ' ' +str(self.user_id)

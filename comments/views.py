@@ -46,3 +46,29 @@ def postComment(request):
         data.user_id = Users.objects.get(pk=3);
         data.save();
         return HttpResponse("success")
+
+@csrf_exempt
+def addNewUser(request):
+    if request.method == 'POST':
+        newUser = Users();
+        newUser.firstname = request.POST.get('firstname', None);
+        newUser.lastname = request.POST.get('lastname', None);
+        newUser.emailId = request.POST.get('email', None);
+        newUser.user_name = request.POST.get('username', None);
+        newUser.password = request.POST.get('password', None);
+        newUser.save();
+        return HttpResponse("success")
+
+def validateUser(request):
+    if request.method == 'GET':
+        username = request.GET.get('username', None);
+        print ("username " + username);
+        password = request.GET.get('password', None);
+        print ("password "+ password);
+        user = Users.objects.filter(user_name = username).filter(password = password)
+        if user.count() > 0:
+            print ("Hi");
+            return HttpResponse("success")
+        else:
+            print ("Hi in fail");
+            return HttpResponseNotFound("login failed")
