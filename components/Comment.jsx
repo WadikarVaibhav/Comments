@@ -51,7 +51,7 @@ export default class Comment extends React.Component {
     })
   }
 
-  replyComment(parentId, postId, comment) {
+  replyComment(parentId, postId, comment, user) {
     console.log('comment reply');
     $.ajax({
         url: 'http://127.0.0.1:8000/postComment/',
@@ -60,7 +60,8 @@ export default class Comment extends React.Component {
         data: {
           postId: postId,
           parentId: parentId,
-          comment: comment
+          comment: comment,
+          user: user
         },
         cache: false,
         error: function() {
@@ -85,6 +86,26 @@ export default class Comment extends React.Component {
     this.setState({
       reply: e.target.value
     })
+  }
+
+  getUserName(userId) {
+    var user;
+    $.ajax({
+        url: 'http://127.0.0.1:8000/getUserName/',
+        datatype: 'json',
+        type: 'GET',
+        data: {
+          userId: userId
+        },
+        cache: false,
+        error: function() {
+          alert('Error!')
+        },
+        success: function(response) {
+          user = response;
+        }.bind(this)
+      })
+      return user;
   }
 
   render() {
@@ -115,14 +136,16 @@ export default class Comment extends React.Component {
       visibility: this.state.replyLinkVisibility,
     }
 
+
     return(
+
       <li key = {this.props.comment.pk}>
-        {this.props.comment.fields.comment}
+        {this.props.comment.fields.comment + ' ' + this.props.comment.fields.userFullName}
         <br/>
 
         <input type = "text" id={this.props.comment.pk} value={this.state.reply} onChange= {this.onChange.bind(this)} style={replyBoxStyle}/>
 
-        <button onClick={this.replyComment.bind(this, this.props.comment.pk, this.props.postId, this.state.reply)} style={replyButtonStyle}>Reply</button>
+        <button onClick={this.replyComment.bind(this, this.props.comment.pk, this.props.postId, this.state.reply, this.props.username)} style={replyButtonStyle}>Reply</button>
 
         <a id={'commentsLink'+this.props.comment.pk} onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)}
             style={commentLinkStyle}>Comments

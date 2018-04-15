@@ -1,7 +1,6 @@
-import React from 'react';
-import SignUp from './SignUp.jsx';
 import { browserRouter } from 'react-router';
 import $ from 'jquery';
+import React from 'react';
 
 export default class Login extends React.Component {
 
@@ -14,7 +13,7 @@ export default class Login extends React.Component {
   }
 
   nagivateToSignUp() {
-    this.props.history.push('/signUp');
+    this.props.history.push('/signUp/');
   }
 
   validateUser() {
@@ -31,7 +30,10 @@ export default class Login extends React.Component {
           alert('login failed')
         },
         success: function(response) {
-           alert('Logged in successfully')
+           this.props.history.push({
+            pathname: '/posts/',
+            state: { user: this.state.username }
+          })
         }.bind(this)
       })
   }

@@ -40,7 +40,7 @@ export default class PostDetails extends React.Component {
     })
   }
 
-  postComment(parentId, postId, comment) {
+  postComment(parentId, postId, comment, user) {
     console.log('comment reply');
     $.ajax({
         url: 'http://127.0.0.1:8000/postComment/',
@@ -49,7 +49,8 @@ export default class PostDetails extends React.Component {
         data: {
           postId: postId,
           parentId: parentId,
-          comment: comment
+          comment: comment,
+          user: user
         },
         cache: false,
         error: function() {
@@ -76,8 +77,8 @@ export default class PostDetails extends React.Component {
         <a onClick={this.getParentComments.bind(this, 0, postId)} style={{cursor: 'pointer', color: "#0000FF", textDecoration: 'underline'}}>comments</a>
         <br/>
         <input type ="text" value={this.state.parentComment} onChange= {this.onChange.bind(this)}/>
-        <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment)} >Comment</button>
-        <Comments CommentObject={parentComments} post= {postId}/>
+        <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment, this.props.location.state.user)} >Comment</button>
+        <Comments CommentObject={parentComments} post= {postId} user={this.props.location.state.user}/>
       </div>
     );
   }

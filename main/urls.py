@@ -8,5 +8,5 @@ urlpatterns = [
     url(r'^comments/', views.getComments),
     url(r'^postComment/', views.postComment),
     url(r'^addUser/', views.addNewUser),
-    url(r'^validateUser/', views.validateUser)
+    url(r'^validateUser/', views.validateUser),
 ]

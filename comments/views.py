@@ -27,6 +27,14 @@ def getComments(request):
         comments = serializers.serialize("json", comments)
         return HttpResponse(comments, content_type="application/json")
 
+def getUserName(username):
+    user =  Users.objects.filter(user_name = username).values_list('firstname', flat=True).first()
+    firstname = str (user);
+    user =  Users.objects.filter(user_name = username).values_list('lastname', flat=True).first()
+    lastname = str(user);
+    return firstname+' '+lastname;
+
+
 @csrf_exempt
 def postComment(request):
     if request.method == 'POST':
@@ -35,15 +43,18 @@ def postComment(request):
         postId = (int) (postId);
         parentId = (int) (parentId);
         comment = request.POST.get('comment', None);
+        username = request.POST.get('user', None);
         data = Comments();
         data.comment = comment;
+        userId = Users.objects.get(pk=3);
         data.post_id = Posts.objects.get(pk=postId);
         if parentId != 0:
             data.parent_id = Comments.objects.get(comment_id = parentId);
         data.likes = 0;
         data.date_created = datetime.now();
         data.date_modified = datetime.now();
-        data.user_id = Users.objects.get(pk=3);
+        data.user_id = userId;
+        data.userFullName = getUserName(username);
         data.save();
         return HttpResponse("success")
 

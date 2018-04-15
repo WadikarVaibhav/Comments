@@ -28,6 +28,7 @@ class Comments(models.Model):
     date_modified = models.DateTimeField(auto_now=True)
     parent_id = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null =True)
     likes = models.IntegerField(default=0)
+    userFullName = models.CharField(max_length = 20, default='Vaibhav Wadikar')
 
     def __str__(self):
         return str(self.comment_id) + '. '+self.comment +'--> parent id: '+str(self.parent_id)

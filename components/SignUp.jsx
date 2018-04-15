@@ -55,7 +55,7 @@ export default class SignUp extends React.Component {
           }.bind(this)
         })
     } else {
-      alert('All the fields are mandatory');
+      alert('All fields are mandatory');
     }
   }
 
