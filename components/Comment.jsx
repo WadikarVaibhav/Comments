@@ -1,6 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import Comments from './Comments.jsx';
+import dateformat from 'dateformat';
 
 export default class Comment extends React.Component {
 
@@ -19,7 +20,7 @@ export default class Comment extends React.Component {
   }
 
   getComments(parentId, postId) {
-    console.log('here in get comments '+parentId);
+    console.log(' get comments '+parentId);
     console.log('p2 '+postId);
     $.ajax({
         url: 'http://127.0.0.1:8000/comments/',
@@ -108,8 +109,16 @@ export default class Comment extends React.Component {
       return user;
   }
 
+  getDate(date) {
+    return dateformat(date, "mmm d, yyyy, h:MM TT");
+  }
+
   render() {
     var comments = this.state.comments;
+
+    console.log("timings: ");
+
+    console.log(dateformat("2018-04-17T07:46:52.409Z", "mmm d, yyyy, h:MM TT"));
 
     const replyBoxStyle = {
       width: this.state.replyBoxWidth,
@@ -136,11 +145,17 @@ export default class Comment extends React.Component {
       visibility: this.state.replyLinkVisibility,
     }
 
+    console.log("here: ")
+    console.log(this);
 
     return(
 
       <li key = {this.props.comment.pk}>
-        {this.props.comment.fields.comment + ' ' + this.props.comment.fields.userFullName}
+        {this.props.comment.fields.userFullName}
+        <br/>
+        {this.getDate(this.props.comment.fields.date_modified)}
+        <br/>
+        {this.props.comment.fields.comment}
         <br/>
 
         <input type = "text" id={this.props.comment.pk} value={this.state.reply} onChange= {this.onChange.bind(this)} style={replyBoxStyle}/>
@@ -155,7 +170,7 @@ export default class Comment extends React.Component {
             style={replyLinkStyle}>Reply
         </a>
 
-        <Comments CommentObject={comments} post= {this.props.postId}/>
+        <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username}/>
 
       </li>
     )
