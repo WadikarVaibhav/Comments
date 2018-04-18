@@ -7,6 +7,7 @@ class Users(models.Model):
     lastname = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
     password = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
     emailId = models.CharField(max_length = 30, null =False, blank=False, default='abc@gmail.com')
+    picture = models.ImageField(upload_to='pictures', default='D:/My Django Projects/main/default.jpg')
 
     def __str__(self):
         return self.user_name + ' ' +str(self.user_id)

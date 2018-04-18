@@ -5,6 +5,7 @@ import psycopg2
 from .models import Posts, Users, Comments
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime
+import json
 
 def getPosts(request):
      if request.method == 'GET':
@@ -24,8 +25,34 @@ def getComments(request):
             comments = Comments.objects.filter(post_id = postId).filter(parent_id__isnull=True).only('comment')
         else :
             comments = Comments.objects.filter(post_id = postId).filter(parent_id = parentId).only('comment')
-        comments = serializers.serialize("json", comments)
-        return HttpResponse(comments, content_type="application/json")
+        userIds = getUsers(comments)
+        users = Users.objects.filter(user_id__in = userIds)
+
+
+        users = serializers.serialize("json", list(users))
+        comments = serializers.serialize("json", list(comments))
+
+        response = {
+            'comments': comments,
+            'users': users
+        }
+
+        response = json.dumps(response)
+
+        #response = list(comments) + list(users)
+        #response = serializers.serialize('json', response)
+
+        return HttpResponse(response, content_type="application/json")
+
+def getUsers(comments):
+    users = []
+    for comment in comments:
+        if comment.user_id not in users:
+            users.append(comment.user_id)
+    userIds = []
+    for user in users:
+        userIds.append(user.user_id)
+    return userIds
 
 def getUserName(username):
     user =  Users.objects.filter(user_name = username).values_list('firstname', flat=True).first()

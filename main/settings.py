@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'comments.apps.CommentsConfig',
-    'corsheaders'
+    'corsheaders',
 ]
 
 CORS_ORIGIN_WHITELIST = (
@@ -153,6 +153,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'main/media')
 
 STATICFILES_DIRS = [
       (os.path.join(BASE_DIR, 'static')),

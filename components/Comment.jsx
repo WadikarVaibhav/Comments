@@ -9,6 +9,7 @@ export default class Comment extends React.Component {
     super();
     this.state ={
       comments: [],
+      users: [],
       replyBoxWidth: 0,
       replyBoxVisibility: 'hidden',
       replyButtonVisibility: 'hidden',
@@ -20,7 +21,7 @@ export default class Comment extends React.Component {
   }
 
   getComments(parentId, postId) {
-    console.log(' get comments '+parentId);
+    console.log('here in get comments '+parentId);
     console.log('p2 '+postId);
     $.ajax({
         url: 'http://127.0.0.1:8000/comments/',
@@ -34,8 +35,13 @@ export default class Comment extends React.Component {
           alert('Error!')
         },
         success: function(response) {
+          var commentResponse = response.comments;
+          var comments = $.parseJSON('[' + commentResponse + ']');
+          var userResponse = response.users;
+          var users = $.parseJSON('[' + userResponse + ']');
            this.setState ({
-             comments: response
+             comments: comments[0],
+             users: users[0]
            })
         }.bind(this)
       })
@@ -110,15 +116,31 @@ export default class Comment extends React.Component {
   }
 
   getDate(date) {
-    return dateformat(date, "mmm d, yyyy, h:MM TT");
+    return dateformat(date, "mmm d, yyyy h:MM TT");
+  }
+
+  getImage(userId) {
+    console.log(this.props.usersInfo);
+     // this.props.usersInfo.map(function(user) {
+     //   if(user.pk == userId) {
+     //     return {user.fields.picture}
+     //   }
+     // })
+
+     for (var i = 0; i < this.props.usersInfo.length; i++) {
+      if(this.props.usersInfo[i].pk == userId) {
+        return this.props.usersInfo[i].fields.picture
+      }
+    }
   }
 
   render() {
     var comments = this.state.comments;
+    var usersInfo = this.state.users;
 
     console.log("timings: ");
 
-    console.log(dateformat("2018-04-17T07:46:52.409Z", "mmm d, yyyy, h:MM TT"));
+console.log(comments);
 
     const replyBoxStyle = {
       width: this.state.replyBoxWidth,
@@ -151,6 +173,7 @@ export default class Comment extends React.Component {
     return(
 
       <li key = {this.props.comment.pk}>
+        <img src={this.getImage(this.props.comment.fields.user_id)}  />
         {this.props.comment.fields.userFullName}
         <br/>
         {this.getDate(this.props.comment.fields.date_modified)}
@@ -170,7 +193,7 @@ export default class Comment extends React.Component {
             style={replyLinkStyle}>Reply
         </a>
 
-        <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username}/>
+        <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username} userInfo = {usersInfo}/>
 
       </li>
     )
