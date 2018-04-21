@@ -9,7 +9,6 @@ export default class Comment extends React.Component {
     super();
     this.state ={
       comments: [],
-      users: [],
       replyBoxWidth: 0,
       replyBoxVisibility: 'hidden',
       replyButtonVisibility: 'hidden',
@@ -35,13 +34,8 @@ export default class Comment extends React.Component {
           alert('Error!')
         },
         success: function(response) {
-          var commentResponse = response.comments;
-          var comments = $.parseJSON('[' + commentResponse + ']');
-          var userResponse = response.users;
-          var users = $.parseJSON('[' + userResponse + ']');
            this.setState ({
-             comments: comments[0],
-             users: users[0]
+             comments: response
            })
         }.bind(this)
       })
@@ -119,28 +113,10 @@ export default class Comment extends React.Component {
     return dateformat(date, "mmm d, yyyy h:MM TT");
   }
 
-  getImage(userId) {
-    console.log(this.props.usersInfo);
-     // this.props.usersInfo.map(function(user) {
-     //   if(user.pk == userId) {
-     //     return {user.fields.picture}
-     //   }
-     // })
 
-     for (var i = 0; i < this.props.usersInfo.length; i++) {
-      if(this.props.usersInfo[i].pk == userId) {
-        return this.props.usersInfo[i].fields.picture
-      }
-    }
-  }
 
   render() {
     var comments = this.state.comments;
-    var usersInfo = this.state.users;
-
-    console.log("timings: ");
-
-console.log(comments);
 
     const replyBoxStyle = {
       width: this.state.replyBoxWidth,
@@ -173,7 +149,7 @@ console.log(comments);
     return(
 
       <li key = {this.props.comment.pk}>
-        <img src={this.getImage(this.props.comment.fields.user_id)}  />
+      <img src={'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile}  width={50} height={30} />
         {this.props.comment.fields.userFullName}
         <br/>
         {this.getDate(this.props.comment.fields.date_modified)}
@@ -193,7 +169,7 @@ console.log(comments);
             style={replyLinkStyle}>Reply
         </a>
 
-        <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username} userInfo = {usersInfo}/>
+        <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username}/>
 
       </li>
     )

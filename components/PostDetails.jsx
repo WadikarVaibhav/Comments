@@ -8,8 +8,7 @@ export default class PostDetails extends React.Component {
     super();
     this.state ={
       parentComments: [],
-      parentComment: '',
-      users: []
+      parentComment: ''
     }
   }
 
@@ -28,13 +27,8 @@ export default class PostDetails extends React.Component {
           alert('Error!')
         },
         success: function(response) {
-          var commentResponse = response.comments;
-          var comments = $.parseJSON('[' + commentResponse + ']');
-          var userResponse = response.users;
-          var users = $.parseJSON('[' + userResponse + ']');
            this.setState ({
-             parentComments: comments[0],
-             users: users[0]
+             parentComments: response
            })
         }.bind(this)
       })
@@ -73,7 +67,6 @@ export default class PostDetails extends React.Component {
 
   render() {
     var parentComments = this.state.parentComments;
-    var usersInfo = this.state.users;
     var postId = this.props.match.params.id;
     return (
       <div>
@@ -84,7 +77,7 @@ export default class PostDetails extends React.Component {
         <br/>
         <input type ="text" value={this.state.parentComment} onChange= {this.onChange.bind(this)}/>
         <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment, this.props.location.state.user)} >Comment</button>
-        <Comments CommentObject={parentComments} post= {postId} user={this.props.location.state.user} usersInfo={usersInfo}/>
+        <Comments CommentObject={parentComments} post= {postId} user={this.props.location.state.user} />
       </div>
     );
   }
