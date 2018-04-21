@@ -35,6 +35,15 @@ def getUserName(username):
     lastname = str(user);
     return firstname+' '+lastname;
 
+def getProfilePicture(username):
+    print(username)
+    print('here1')
+    user = Users.objects.filter(user_name = username).values_list('picture', flat=True).first()
+    user = str(user);
+    print('here2')
+    print (user)
+    return user;
+
 
 @csrf_exempt
 def postComment(request):
@@ -56,6 +65,7 @@ def postComment(request):
         data.date_modified = datetime.now();
         data.user_id = userId;
         data.userFullName = getUserName(username);
+        data.profile = getProfilePicture(username);
         data.save();
         return HttpResponse("success")
 
