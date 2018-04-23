@@ -44,6 +44,21 @@ def getProfilePicture(username):
     print (user)
     return user;
 
+@csrf_exempt
+def editComment(request):
+    if request.method == 'POST':
+        commentId = request.POST.get('commentId', None);
+        postId = request.POST.get('postId', None);
+        edit = request.POST.get('edit', None);
+        userId = request.POST.get('userId', None);
+        userId = (int) (userId)
+        update = Comments.objects.filter(user_id = userId).filter(comment_id = commentId).update(comment = edit)
+        if update > 0:
+            print ("here")
+            return HttpResponse("successFully Updated")
+        else:
+            print ("there")
+            return HttpResponseNotFound("You are not authorized to edit comment")
 
 @csrf_exempt
 def postComment(request):

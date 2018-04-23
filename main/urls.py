@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^postComment/', views.postComment),
     url(r'^addUser/', views.addNewUser),
     url(r'^validateUser/', views.validateUser),
+    url(r'^editComment/', views.editComment),
+
 ]
 
 if settings.DEBUG:

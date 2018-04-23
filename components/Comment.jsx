@@ -15,7 +15,12 @@ export default class Comment extends React.Component {
       replyButtonWidth: 0,
       commentLinkVisibility: 'visible',
       replyLinkVisibility: 'visible',
-      reply: ''
+      editBoxWidth: 0,
+      editBoxVisibility: 'hidden',
+      reply: '',
+      edit: '',
+      editButtonText: 'Edit',
+      commentLabelVisibility: 'visible',
     }
   }
 
@@ -52,6 +57,48 @@ export default class Comment extends React.Component {
     })
   }
 
+  editComment(commentId, postId, edit, userId, oldComment, parentId) {
+    if(this.state.editBoxVisibility == 'visible' && edit.length > 0) {
+      $.ajax({
+          url: 'http://127.0.0.1:8000/editComment/',
+          datatype: 'json',
+          type: 'POST',
+          data: {
+            postId: postId,
+            commentId: commentId,
+            edit: edit,
+            userId: userId,
+            oldComment: oldComment
+          },
+          cache: false,
+          error: function() {
+            alert('Error!')
+          },
+          success: function(response) {
+              this.setState({
+                editButtonText: 'Edit',
+                editBoxWidth: 0,
+                editBoxVisibility: 'hidden',
+                commentLabelVisibility: 'visible',
+                comments: []
+              })
+              if(parentId == null) {
+                parentId = 0;
+              }
+              //this.getComments(parentId, postId);
+          }.bind(this)
+        })
+    } else {
+      this.setState({
+        editBoxWidth: 300,
+        editBoxVisibility: 'visible',
+        editButtonText: 'Done',
+        edit: oldComment,
+        commentLabelVisibility: 'hidden'
+      })
+    }
+  }
+
   replyComment(parentId, postId, comment, user) {
     console.log('comment reply');
     $.ajax({
@@ -86,6 +133,12 @@ export default class Comment extends React.Component {
   onChange(e) {
     this.setState({
       reply: e.target.value
+    })
+  }
+
+  onChangeEdit(e) {
+    this.setState ({
+      edit: e.target.value
     })
   }
 
@@ -143,6 +196,18 @@ export default class Comment extends React.Component {
       visibility: this.state.replyLinkVisibility,
     }
 
+    const editButtonStyle = {
+    }
+
+    const editBoxStyle = {
+      visibility: this.state.editBoxVisibility,
+      width: this.state.editBoxWidth,
+    }
+
+    const commentLabelStyle = {
+      visibility: this.state.commentLabelVisibility,
+    }
+
     console.log("here: ")
     console.log(this);
 
@@ -154,7 +219,9 @@ export default class Comment extends React.Component {
         <br/>
         {this.getDate(this.props.comment.fields.date_modified)}
         <br/>
-        {this.props.comment.fields.comment}
+      <label style={commentLabelStyle}>{this.props.comment.fields.comment}</label>
+        <input type = "text" id={this.props.comment.pk} value={this.state.edit} onChange= {this.onChangeEdit.bind(this)} style={editBoxStyle}/>
+        <button onClick={this.editComment.bind(this, this.props.comment.pk, this.props.postId, this.state.edit, this.props.comment.fields.user_id, this.props.comment.fields.comment, this.props.comment.fields.parent_id)} style={editButtonStyle}>{this.state.editButtonText}</button>
         <br/>
 
         <input type = "text" id={this.props.comment.pk} value={this.state.reply} onChange= {this.onChange.bind(this)} style={replyBoxStyle}/>
