@@ -57,7 +57,7 @@ export default class Comment extends React.Component {
     })
   }
 
-  editComment(commentId, postId, edit, userId, oldComment, parentId) {
+  editComment(commentId, postId, edit, username, oldComment, parentId) {
     if(this.state.editBoxVisibility == 'visible' && edit.length > 0) {
       $.ajax({
           url: 'http://127.0.0.1:8000/editComment/',
@@ -67,12 +67,12 @@ export default class Comment extends React.Component {
             postId: postId,
             commentId: commentId,
             edit: edit,
-            userId: userId,
+            username: username,
             oldComment: oldComment
           },
           cache: false,
           error: function() {
-            alert('Error!')
+            alert('You are not allowed to edit!')
           },
           success: function(response) {
               this.setState({
@@ -221,7 +221,7 @@ export default class Comment extends React.Component {
         <br/>
       <label style={commentLabelStyle}>{this.props.comment.fields.comment}</label>
         <input type = "text" id={this.props.comment.pk} value={this.state.edit} onChange= {this.onChangeEdit.bind(this)} style={editBoxStyle}/>
-        <button onClick={this.editComment.bind(this, this.props.comment.pk, this.props.postId, this.state.edit, this.props.comment.fields.user_id, this.props.comment.fields.comment, this.props.comment.fields.parent_id)} style={editButtonStyle}>{this.state.editButtonText}</button>
+        <button onClick={this.editComment.bind(this, this.props.comment.pk, this.props.postId, this.state.edit, this.props.username, this.props.comment.fields.comment, this.props.comment.fields.parent_id)} style={editButtonStyle}>{this.state.editButtonText}</button>
         <br/>
 
         <input type = "text" id={this.props.comment.pk} value={this.state.reply} onChange= {this.onChange.bind(this)} style={replyBoxStyle}/>

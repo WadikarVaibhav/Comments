@@ -1,4 +1,5 @@
 from django.http import HttpResponse
+from django.http import HttpResponseNotFound
 from django.http import JsonResponse
 from django.core import serializers
 import psycopg2
@@ -17,10 +18,6 @@ def getComments(request):
      if request.method == 'GET':
         parentId = request.GET.get('parentId', None);
         postId = request.GET.get('postId', None);
-        print('parent id: ');
-        print(parentId);
-        print('post id: ');
-        print(postId);
         if parentId == '0':
             comments = Comments.objects.filter(post_id = postId).filter(parent_id__isnull=True).only('comment')
         else :
@@ -36,12 +33,13 @@ def getUserName(username):
     return firstname+' '+lastname;
 
 def getProfilePicture(username):
-    print(username)
-    print('here1')
     user = Users.objects.filter(user_name = username).values_list('picture', flat=True).first()
     user = str(user);
-    print('here2')
-    print (user)
+    return user;
+
+def getUserIdFromUsername(username):
+    user = Users.objects.filter(user_name = username).values_list('user_id', flat=True).first()
+    user = str(user);
     return user;
 
 @csrf_exempt
@@ -50,19 +48,18 @@ def editComment(request):
         commentId = request.POST.get('commentId', None);
         postId = request.POST.get('postId', None);
         edit = request.POST.get('edit', None);
-        userId = request.POST.get('userId', None);
-        userId = (int) (userId)
+        username = request.POST.get('username', None);
+        userId = getUserIdFromUsername(username);
         update = Comments.objects.filter(user_id = userId).filter(comment_id = commentId).update(comment = edit)
         if update > 0:
-            print ("here")
             return HttpResponse("successFully Updated")
         else:
-            print ("there")
-            return HttpResponseNotFound("You are not authorized to edit comment")
+            return HttpResponseNotFound("not authorized to edit")
 
 @csrf_exempt
 def postComment(request):
     if request.method == 'POST':
+        print ('here')
         parentId = request.POST.get('parentId', None);
         postId = request.POST.get('postId', None);
         postId = (int) (postId);
@@ -71,7 +68,8 @@ def postComment(request):
         username = request.POST.get('user', None);
         data = Comments();
         data.comment = comment;
-        userId = Users.objects.get(pk=3);
+        userId = getUserIdFromUsername(username);
+        userId = Users.objects.get(pk=userId);
         data.post_id = Posts.objects.get(pk=postId);
         if parentId != 0:
             data.parent_id = Comments.objects.get(comment_id = parentId);
@@ -99,13 +97,9 @@ def addNewUser(request):
 def validateUser(request):
     if request.method == 'GET':
         username = request.GET.get('username', None);
-        print ("username " + username);
         password = request.GET.get('password', None);
-        print ("password "+ password);
         user = Users.objects.filter(user_name = username).filter(password = password)
         if user.count() > 0:
-            print ("Hi");
             return HttpResponse("success")
         else:
-            print ("Hi in fail");
             return HttpResponseNotFound("login failed")

@@ -33,4 +33,4 @@ class Comments(models.Model):
     profile = models.FileField(blank=True, null = True)
 
     def __str__(self):
-        return str(self.comment_id) + '. '+self.comment +'--> parent id: '+str(self.parent_id)
+        return str(self.user_id) + '. '+str(self.comment_id) + '. '+self.comment +'--> parent id: '+str(self.parent_id)
