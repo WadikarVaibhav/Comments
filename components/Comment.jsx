@@ -7,7 +7,7 @@ export default class Comment extends React.Component {
 
   constructor() {
     super();
-    this.state ={
+    this.state = {
       comments: [],
       replyBoxWidth: 0,
       replyBoxVisibility: 'hidden',
@@ -58,7 +58,10 @@ export default class Comment extends React.Component {
   }
 
   editComment(commentId, postId, edit, username, oldComment, parentId) {
-    if(this.state.editBoxVisibility == 'visible' && edit.length > 0) {
+    if (parentId == null) {
+      parentId = 0;
+    }
+    if (this.state.editBoxVisibility == 'visible' && edit.length > 0) {
       $.ajax({
           url: 'http://127.0.0.1:8000/editComment/',
           datatype: 'json',
@@ -68,24 +71,21 @@ export default class Comment extends React.Component {
             commentId: commentId,
             edit: edit,
             username: username,
-            oldComment: oldComment
+            oldComment: oldComment,
+            parentId: parentId
           },
           cache: false,
           error: function() {
             alert('You are not allowed to edit!')
           },
           success: function(response) {
-              this.setState({
-                editButtonText: 'Edit',
-                editBoxWidth: 0,
-                editBoxVisibility: 'hidden',
-                commentLabelVisibility: 'visible',
-                comments: []
-              })
-              if(parentId == null) {
-                parentId = 0;
-              }
-              //this.getComments(parentId, postId);
+            this.setState({
+              editButtonText: 'Edit',
+              editBoxWidth: 0,
+              editBoxVisibility: 'hidden',
+              commentLabelVisibility: 'visible',
+              edit: '',
+            });
           }.bind(this)
         })
     } else {

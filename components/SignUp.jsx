@@ -15,26 +15,26 @@ export default class SignUp extends React.Component {
   }
 
   isFormValid() {
-    if(this.state.firstname == '') {
+    if (this.state.firstname == '') {
       return false;
     }
-    if(this.state.lastname == '') {
+    if (this.state.lastname == '') {
       return false;
     }
-    if(this.state.email == '') {
+    if (this.state.email == '') {
       return false;
     }
-    if(this.state.username == '') {
+    if (this.state.username == '') {
       return false;
     }
-    if(this.state.password == '') {
+    if (this.state.password == '') {
       return false;
     }
     return true;
   }
 
   signUpUser() {
-    if(this.isFormValid()) {
+    if (this.isFormValid()) {
       $.ajax({
           url: 'http://127.0.0.1:8000/addUser/',
           datatype: 'json',

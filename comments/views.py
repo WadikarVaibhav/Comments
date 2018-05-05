@@ -50,9 +50,15 @@ def editComment(request):
         edit = request.POST.get('edit', None);
         username = request.POST.get('username', None);
         userId = getUserIdFromUsername(username);
-        update = Comments.objects.filter(user_id = userId).filter(comment_id = commentId).update(comment = edit)
+        update = Comments.objects.filter(user_id = userId).filter(comment_id = commentId).update(comment = edit);
+        parentId = request.POST.get('parentId', None);
         if update > 0:
-            return HttpResponse("successFully Updated")
+            if parentId == '0':
+                comments = Comments.objects.filter(post_id = postId).filter(parent_id__isnull=True).only('comment')
+            else :
+                comments = Comments.objects.filter(post_id = postId).filter(parent_id = parentId).only('comment')
+            comments = serializers.serialize("json", comments)
+            return HttpResponse(comments, content_type="application/json")
         else:
             return HttpResponseNotFound("not authorized to edit")
 
