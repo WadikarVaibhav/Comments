@@ -75,8 +75,8 @@ export default class PostDetails extends React.Component {
         <br/>
         <a onClick={this.getParentComments.bind(this, 0, postId)} style={{cursor: 'pointer', color: "#0000FF", textDecoration: 'underline'}}>comments</a>
         <br/>
-        <input type ="text" value={this.state.parentComment} onChange= {this.onChange.bind(this)}/>
-        <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment, this.props.location.state.user)} >Comment</button>
+        <input type ="text" value={this.state.parentComment} onChange= {this.onChange.bind(this)} placeholder="Add a comment..." className="comment_box"/>
+        <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment, this.props.location.state.user)} className="comment_button" >Comment</button>
         <Comments CommentObject={parentComments} post= {postId} user={this.props.location.state.user} />
       </div>
     );

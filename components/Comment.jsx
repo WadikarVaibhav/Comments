@@ -183,16 +183,12 @@ export default class Comment extends React.Component {
 
     const commentLinkStyle = {
       cursor: 'pointer',
-      color: "#0000FF",
-      textDecoration: 'underline',
       marginRight: '10px',
       visibility: this.state.commentLinkVisibility,
     }
 
     const replyLinkStyle = {
       cursor: 'pointer',
-      color: "#0000FF",
-      textDecoration: 'underline',
       visibility: this.state.replyLinkVisibility,
     }
 
@@ -213,31 +209,43 @@ export default class Comment extends React.Component {
 
     return(
 
-      <li key = {this.props.comment.pk}>
-      <img src={'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile}  width={50} height={30} />
-        {this.props.comment.fields.userFullName}
-        <br/>
-        {this.getDate(this.props.comment.fields.date_modified)}
-        <br/>
-      <label style={commentLabelStyle}>{this.props.comment.fields.comment}</label>
-        <input type = "text" id={this.props.comment.pk} value={this.state.edit} onChange= {this.onChangeEdit.bind(this)} style={editBoxStyle}/>
-        <button onClick={this.editComment.bind(this, this.props.comment.pk, this.props.postId, this.state.edit, this.props.username, this.props.comment.fields.comment, this.props.comment.fields.parent_id)} style={editButtonStyle}>{this.state.editButtonText}</button>
-        <br/>
+      <li  className="comment_list" key = {this.props.comment.pk}>
+        <div>
+          <div>
+            <div id="div1">
+              <img src={'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile} className="profile_photo_img" />
+            </div>
+            <div id="div2">
+              <span className="user_name">{this.props.comment.fields.userFullName}</span>
+              <br/>
+              <span className="comment_timestamp">{this.getDate(this.props.comment.fields.date_modified)}</span>
+            </div>
+          </div>
+        </div>
 
-        <input type = "text" id={this.props.comment.pk} value={this.state.reply} onChange= {this.onChange.bind(this)} style={replyBoxStyle}/>
+        <div className="comment">
 
-        <button onClick={this.replyComment.bind(this, this.props.comment.pk, this.props.postId, this.state.reply, this.props.username)} style={replyButtonStyle}>Reply</button>
+          <div className="edit">
+            <span style={commentLabelStyle}>{this.props.comment.fields.comment}</span>
+            <div id="edit">
+              <input className="comment_box" type = "text" id={this.props.comment.pk} value={this.state.edit} onChange= {this.onChangeEdit.bind(this)} style={editBoxStyle}/>
+              <button className="comment_button" onClick={this.editComment.bind(this, this.props.comment.pk, this.props.postId, this.state.edit, this.props.username, this.props.comment.fields.comment, this.props.comment.fields.parent_id)} style={editButtonStyle}>{this.state.editButtonText}</button>
+            </div>
+          </div>
 
-        <a id={'commentsLink'+this.props.comment.pk} onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)}
-            style={commentLinkStyle}>Comments
-        </a>
+          <div id="reply">
+            <input className="comment_box" type = "text" id={this.props.comment.pk} value={this.state.reply} onChange= {this.onChange.bind(this)} style={replyBoxStyle}/>
+            <button className="comment_button" onClick={this.replyComment.bind(this, this.props.comment.pk, this.props.postId, this.state.reply, this.props.username)} style={replyButtonStyle}>Reply</button>
+          </div>
 
-        <a id={'repliesLink'+this.props.comment.pk} onClick={this.expandReplyBox.bind(this, this.props.comment.pk)}
-            style={replyLinkStyle}>Reply
-        </a>
+          <div className="comment_reply_links">
+            <a  onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)} style={commentLinkStyle}>Comments</a>
+            <a onClick={this.expandReplyBox.bind(this, this.props.comment.pk)} style={replyLinkStyle}>Reply</a>
+          </div>
 
-        <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username}/>
+          <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username}/>
 
+        </div>
       </li>
     )
   }
