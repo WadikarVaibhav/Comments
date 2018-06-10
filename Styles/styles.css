@@ -41,6 +41,54 @@
   display: inline-flex;
 }
 
+.menus_list {
+  display: inline;
+}
+
+.menus_list_item {
+  list-style-type:none
+  height: 26px;
+  font-size: 25px;
+  cursor: pointer;
+  list-style-type:none;
+}
+
+.menu_item {
+  margin-left: 10px;
+}
+
+.menu li:hover {
+    background-color: aliceblue;
+}
+
+.menu_unordered_list {
+  width: 100%;
+    margin-left: -40px;
+}
+
+.menus {
+  background-color: Transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    color: #999;
+}
+
+.menu {
+  margin-left: 77px;
+  width: 10%;
+  color: #999;
+  border: 1px solid lightgrey;
+}
+
+.menus:after {
+  content: '\2026';
+    font-size: 25px;
+
+}
+
 .comment_reply_links {
   margin-bottom: 18px;
   margin-top: -30px;

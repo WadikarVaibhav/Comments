@@ -2,6 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import Comments from './Comments.jsx';
 import dateformat from 'dateformat';
+import Menus from './menus.jsx';
 
 export default class Comment extends React.Component {
 
@@ -229,7 +230,7 @@ export default class Comment extends React.Component {
             <span style={commentLabelStyle}>{this.props.comment.fields.comment}</span>
             <div id="edit">
               <input className="comment_box" type = "text" id={this.props.comment.pk} value={this.state.edit} onChange= {this.onChangeEdit.bind(this)} style={editBoxStyle}/>
-              <button className="comment_button" onClick={this.editComment.bind(this, this.props.comment.pk, this.props.postId, this.state.edit, this.props.username, this.props.comment.fields.comment, this.props.comment.fields.parent_id)} style={editButtonStyle}>{this.state.editButtonText}</button>
+            {/*}<button className="comment_button" onClick={this.editComment.bind(this, this.props.comment.pk, this.props.postId, this.state.edit, this.props.username, this.props.comment.fields.comment, this.props.comment.fields.parent_id)} style={editButtonStyle}>{this.state.editButtonText}</button>*/}
             </div>
           </div>
 
@@ -239,8 +240,10 @@ export default class Comment extends React.Component {
           </div>
 
           <div className="comment_reply_links">
-            <a  onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)} style={commentLinkStyle}>Comments</a>
+            <a onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)} style={commentLinkStyle}>Comments</a>
             <a onClick={this.expandReplyBox.bind(this, this.props.comment.pk)} style={replyLinkStyle}>Reply</a>
+            <Menus/>
+
           </div>
 
           <Comments CommentObject={comments} post= {this.props.postId} user = {this.props.username}/>
