@@ -45,6 +45,10 @@
   display: inline;
 }
 
+.comment_list {
+  padding: 0;
+}
+
 .menus_list_item {
   list-style-type:none
   height: 26px;
