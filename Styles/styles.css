@@ -3,6 +3,13 @@
   width: 30px;
   border-radius: 50%;
   margin-right: 5px;
+
+}
+
+.img {
+  overflow: hidden;
+margin-top: -36px;
+margin-left: 31px;
 }
 
 .user_name {
@@ -15,6 +22,15 @@
   position: relative;
   bottom: 18px;
   left: 6px;
+}
+
+.main {
+  width: 38%;
+  padding-bottom: 18px;
+  padding-top: 18px;
+  border: 0px solid lightgrey;
+  background: #f6f6f6;
+  padding-left: 15px;
 }
 
 .comment_timestamp {
@@ -95,7 +111,7 @@
 
 .comment_reply_links {
   margin-bottom: 18px;
-  margin-top: -30px;
+  margin-top: -41px;
 }
 
 .comment_reply_links a {
@@ -134,11 +150,12 @@
     tab-size: 4;
     word-wrap: break-word;
     color: #333;
-    width: 250px;
+    width: 300px;
     height: 23px;
     margin-right: 8px;
     border: 1px solid lightgrey;
-}
+    margin-left: 11px;
+        margin-top: 3px;}
 
 #div1, #div2
 {
@@ -150,4 +167,5 @@
   color: #999;
   font-size: 13px;
     opacity: 1; /* Firefox */
+    padding-left: 5px;
 }

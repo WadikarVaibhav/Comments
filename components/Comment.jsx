@@ -212,7 +212,6 @@ export default class Comment extends React.Component {
 
       <li  className="comment_list" key = {this.props.comment.pk}>
         <div>
-          <div>
             <div id="div1">
               <img src={'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile} className="profile_photo_img" />
             </div>
@@ -221,7 +220,6 @@ export default class Comment extends React.Component {
               <br/>
               <span className="comment_timestamp">{this.getDate(this.props.comment.fields.date_modified)}</span>
             </div>
-          </div>
         </div>
 
         <div className="comment">

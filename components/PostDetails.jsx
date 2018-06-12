@@ -68,16 +68,28 @@ export default class PostDetails extends React.Component {
   render() {
     var parentComments = this.state.parentComments;
     var postId = this.props.match.params.id;
+    var profilePicture = this.props.location.state.profilePicture;
+    console.log(this);
     return (
       <div>
-        <br />
+        <br/>
         {this.props.location.state.post}
+        <br/>
         <br/>
         <a onClick={this.getParentComments.bind(this, 0, postId)} style={{cursor: 'pointer', color: "#0000FF", textDecoration: 'underline'}}>comments</a>
         <br/>
-        <input type ="text" value={this.state.parentComment} onChange= {this.onChange.bind(this)} placeholder="Add a comment..." className="comment_box"/>
-        <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment, this.props.location.state.user)} className="comment_button" >Comment</button>
-        <Comments CommentObject={parentComments} post= {postId} user={this.props.location.state.user} />
+        <br/>
+
+        <div className="main">
+          <div >
+            <img src={'http://127.0.0.1:8000/media/' +profilePicture} className="profile_photo_img" />
+          </div>
+          <div className="img">
+            <input type ="text" value={this.state.parentComment} onChange= {this.onChange.bind(this)} placeholder="Add a comment..." className="comment_box"/>
+            <button onClick={this.postComment.bind(this, 0, postId, this.state.parentComment, this.props.location.state.user)} className="comment_button" >Comment</button>
+          </div>
+          <Comments CommentObject={parentComments} post= {postId} user={this.props.location.state.user} />
+        </div>
       </div>
     );
   }

@@ -12,7 +12,15 @@ def getPosts(request):
      if request.method == 'GET':
         postsList = Posts.objects.all();
         postsList = serializers.serialize("json", postsList)
-        return HttpResponse(postsList, content_type="application/json")
+        loggedInUser = getProfilePicture(request.GET.get('user', None));
+        response = {
+           'posts': postsList,
+           'user': loggedInUser
+        }
+
+        response = json.dumps(response)
+
+        return HttpResponse(response, content_type="application/json")
 
 def getComments(request):
      if request.method == 'GET':
