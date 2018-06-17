@@ -5,7 +5,7 @@ export default class Menu extends Component {
     super();
 
     this.state = {
-      showMenu: false,
+      showMenu: false
     };
 
     this.showMenu = this.showMenu.bind(this);

@@ -12,6 +12,15 @@ margin-top: -36px;
 margin-left: 31px;
 }
 
+.links {
+    margin-top: 13px;
+  }
+
+.reply_comment {
+  margin-left: -13px;
+  margin-bottom: 10px;
+}
+
 .user_name {
   font-weight: bold;
   color: #333;
@@ -111,7 +120,6 @@ margin-left: 31px;
 
 .comment_reply_links {
   margin-bottom: 18px;
-  margin-top: -41px;
 }
 
 .comment_reply_links a {
@@ -119,10 +127,15 @@ margin-left: 31px;
   color: #999;
   font-family: serif;
   font-size: 15px;
+  cursor: pointer;
 }
+
 
 .reply {
   display: inline;
+  margin-left: -11px;
+  margin-top: -13px;
+      position: absolute;
 }
 
 .comment_button {
