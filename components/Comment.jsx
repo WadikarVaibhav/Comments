@@ -21,6 +21,24 @@ export default class Comment extends React.Component {
       showLinks: true
     }
     this.replyComment = this.replyComment.bind(this);
+    this.closeReply = this.closeReply.bind(this);
+    this.startReply = this.startReply.bind(this);
+  }
+
+  startReply(event) {
+    event.preventDefault();
+    this.setState({ showLinks: false }, () => {
+      document.addEventListener('click', this.closeReply);
+    });
+  }
+
+
+  closeReply(event) {
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ showLinks: true }, () => {
+        document.removeEventListener('click', this.closeReply);
+      });
+    }
   }
 
   getComments(parentId, postId) {
@@ -45,7 +63,8 @@ export default class Comment extends React.Component {
       })
   }
 
-  clickReply(commentId) {
+  clickReply(e) {
+    this.startReply(e);
     this.setState({
       showLinks: false
     })
@@ -197,7 +216,7 @@ export default class Comment extends React.Component {
           {
             !this.state.showLinks
               ? (
-                <div id="reply">
+                <div id="reply" ref={(element) => {this.dropdownMenu = element;}}>
                   <Reply replyComment={this.replyComment} commentId={this.props.comment.pk} postId={this.props.postId} reply={this.state.reply} user={this.props.username}/>
                 </div>
               )
@@ -205,6 +224,7 @@ export default class Comment extends React.Component {
                 <div className="comment_reply_links">
                   <a onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)} style={commentLinkStyle}>Comments</a>
                   <a onClick={this.clickReply.bind(this)}>Reply</a>
+                  <Menus />
                 </div>
               )
           }

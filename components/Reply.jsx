@@ -10,10 +10,20 @@ export default class Reply extends React.Component {
     }
     this.onChange = this.onChange.bind(this);
     this.reply = this.reply.bind(this);
+    this.closeReply = this.closeReply.bind(this);
   }
 
   reply() {
     this.props.replyComment(this.props.commentId, this.props.postId, this.state.reply, this.props.user);
+  }
+
+  closeReply() {
+    if (!this.dropdownMenu.contains(event.target)) {
+      this.setState({ showMenu: false }, () => {
+        document.removeEventListener('click', this.closeReply);
+      });
+
+    }
   }
 
   onChange(e) {
