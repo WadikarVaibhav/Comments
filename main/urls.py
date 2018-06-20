@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^addUser/', views.addNewUser),
     url(r'^validateUser/', views.validateUser),
     url(r'^editComment/', views.editComment),
+    url(r'^deleteComment/', views.deleteComment),
 
 ]
 

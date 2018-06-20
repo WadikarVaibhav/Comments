@@ -71,6 +71,26 @@ def editComment(request):
             return HttpResponseNotFound("not authorized to edit")
 
 @csrf_exempt
+def deleteComment(request):
+    if request.method == 'POST':
+        commentId = request.POST.get('commentId', None);
+        postId = request.POST.get('postId', None);
+        username = request.POST.get('username', None);
+        userId = getUserIdFromUsername(username);
+        deletedItems = Comments.objects.filter(user_id = userId).filter(comment_id = commentId).delete();
+        parentId = request.POST.get('parentId', None);
+        if deletedItems:
+            if parentId == '0':
+                comments = Comments.objects.filter(post_id = postId).filter(parent_id__isnull=True).only('comment')
+            else :
+                comments = Comments.objects.filter(post_id = postId).filter(parent_id = parentId).only('comment')
+            comments = serializers.serialize("json", comments)
+            return HttpResponse(comments, content_type="application/json")
+        else:
+            return HttpResponseNotFound("not authorized to delete")
+
+
+@csrf_exempt
 def postComment(request):
     if request.method == 'POST':
         print ('here')

@@ -3,18 +3,17 @@ import $ from 'jquery';
 
 export default class Edit extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state={
-      edit: ''
+      edit: this.props.edit
     }
     this.onChange = this.onChange.bind(this);
     this.edit = this.edit.bind(this);
-    this.closeEdit = this.closeEdit.bind(this);
   }
 
   edit() {
-    this.props.editComment(this.props.commentId, this.props.postId, this.state.reply, this.props.user);
+    this.props.editComment(this.props.commentId, this.props.postId, this.state.edit, this.props.user, this.props.oldComment, this.props.parentId);
   }
 
   onChange(e) {
@@ -27,7 +26,7 @@ export default class Edit extends React.Component {
     return(
       <div className="reply_comment">
         <input className="comment_box" value={this.state.edit} onChange= {this.onChange}/>
-        <button className="comment_button" onClick={this.reply}>Update</button>
+        <button className="comment_button" onClick={this.edit}>Update</button>
       </div>
     )
   }

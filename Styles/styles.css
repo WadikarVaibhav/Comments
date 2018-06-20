@@ -80,9 +80,11 @@ margin-left: 31px;
 .menus_list_item {
   list-style-type:none
   height: 26px;
-  font-size: 25px;
+  font-size: 15px;
   cursor: pointer;
   list-style-type:none;
+      height: 28px;
+      padding-left: 5px;
 }
 
 .menu_item {
@@ -91,7 +93,7 @@ margin-left: 31px;
 
 .menu li:hover {
       background-color: powderblue;
-        width: 136px;
+        width: 132px;
 }
 
 .menu_unordered_list {
@@ -127,6 +129,7 @@ margin-left: 31px;
 
 .comment_reply_links {
   margin-bottom: 18px;
+      margin-top: 12px;
 }
 
 .comment_reply_links a {
@@ -188,4 +191,90 @@ margin-left: 31px;
   font-size: 13px;
     opacity: 1; /* Firefox */
     padding-left: 5px;
+}
+
+.modal_title {
+  font-size: 19px;
+    font-weight: bold;
+    color: #333;
+    border-radius: 4px 4px 0 0;
+}
+
+.modal_header {
+  margin-left: -19px;
+  padding-left: 18px;
+  height: 26px;
+  width: 450px;
+  text-align: -webkit-left;
+  border-bottom: 1px solid #F5F5F5;
+  width: 500px;
+  margin-right: -19px;
+  padding-bottom: 11px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+
+.modal_title {
+  font-size: 19px;
+  font-weight: bold;
+  color: #333;
+  border-radius: 4px 4px 0 0;
+}
+
+.modal_content {
+  height: 17px;
+  margin-left: -19px;
+  padding-left: 17px;
+  text-align: -webkit-left;
+  border-bottom: 1px solid #F5F5F5;
+      margin-right: -18px;
+      font-size: 15px;
+      padding-bottom: 19px;
+        padding-top: 17px;
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+
+.modal_footer {
+  height: 21px;
+  margin-left: -19px;
+  padding-left: 17px;
+  padding-top: 17px;
+  text-align: -webkit-right;
+  background: #f6f6f6;
+margin-right: -19px;
+margin-bottom: -15px;
+height: 29px;
+}
+
+.modal_cancel_link {
+  color: #999;
+  font-size: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    margin-right: 11px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+
+}
+
+.submit_button {
+    cursor: pointer;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      border: 1px solid #234462;
+      background: #3e78ad;
+      color: #fff;
+      text-align: center;
+      font-size: 14px;
+      display: inline-block;
+      font-weight: 500;
+      outline-color: initial;
+      outline-style: initial;
+      outline-width: 0px;
+      height: 27px;
+      width: 79px;
+      border-radius: 3px;
+      margin-right: 18px;
+margin-top: -6px;
+
 }
