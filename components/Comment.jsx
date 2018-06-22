@@ -5,7 +5,8 @@ import dateformat from 'dateformat';
 import Menus from './Menus.jsx';
 import Reply from './Reply.jsx';
 import Edit from './Edit.jsx';
-import Modal from 'react-responsive-modal';
+import DialogBox from './DialogBox.jsx';
+
 
 export default class Comment extends React.Component {
 
@@ -29,9 +30,9 @@ export default class Comment extends React.Component {
     this.closeMenu = this.closeMenu.bind(this);
     this.clickEdit = this.clickEdit.bind(this);
     this.editComment = this.editComment.bind(this);
-    this.startComment = this.startComment.bind(this);
-    this.closeDelete = this.closeDelete.bind(this);
     this.startDelete = this.startDelete.bind(this);
+    this.cancelDelete = this.cancelDelete.bind(this);
+    this.deleteComment = this.deleteComment.bind(this);
   }
 
   startDelete() {
@@ -40,17 +41,9 @@ export default class Comment extends React.Component {
       showDelete: true,
       showMenu: false
     })
-    if (this.state.showDelete) {
-      return
-      <div>
-       <Modal open={open} onClose={this.closeDelete} center>
-         <h2>Simple centered modal</h2>
-       </Modal>
-     </div>
-    }
   }
 
-  closeDelete() {
+  cancelDelete() {
     this.setState({
       showDelete: false
     })
@@ -125,7 +118,7 @@ export default class Comment extends React.Component {
     this.startEdit(e);
   }
 
-  startComment(commentId, postId, user, parentId) {
+  deleteComment(commentId, postId, user, parentId) {
     if (parentId == null) {
       parentId = 0;
     }
@@ -145,7 +138,7 @@ export default class Comment extends React.Component {
       },
       success: function(response) {
         this.setState({
-          showMenu: false
+        showDelete: false
         });
       }.bind(this)
     })
@@ -277,27 +270,6 @@ export default class Comment extends React.Component {
   render() {
     var comments = this.state.comments;
 
-    const commentLinkStyle = {
-      cursor: 'pointer',
-      marginRight: '10px',
-      visibility: this.state.commentLinkVisibility,
-    }
-
-    const editBoxStyle = {
-      visibility: this.state.editBoxVisibility,
-      width: this.state.editBoxWidth,
-    }
-
-    const commentLabelStyle = {
-      visibility: this.state.commentLabelVisibility,
-    }
-
-    const dialogStyles = {
-      fontFamily: "sans-serif",
-      textAlign: "center",
-      width: 100,
-    };
-
     return(
       <li  className="comment_list" key = {this.props.comment.pk}>
 
@@ -305,24 +277,7 @@ export default class Comment extends React.Component {
       {
           this.state.showDelete
             ? (
-              <div>
-                <Modal open={this.state.showDelete} onClose={this.closeDelete} showCloseIcon={false} center>
-                  <div id="modal_main">
-                        <div className="modal_header">
-                          <div className="modal_title" id="__w2_lrvWDrU_modal_title">Delete Comment</div>
-                        </div>
-
-                        <div className="modal_content" id="__w2_lrvWDrU_content">Are you sure you want to delete this comment?</div>
-
-                        <div className="modal_footer" id="__w2_lrvWDrU_modal_footer">
-                            <span className="text_links">
-                              <a className="modal_cancel_link">Cancel</a>
-                            </span>
-                              <button className="submit_button">Confirm</button>
-                        </div>
-                  </div>
-                </Modal>
-              </div>
+              <DialogBox open={this.state.showDelete} onClose={this.cancelDelete} showCloseIcon={false} deleteComment = {this.deleteComment} cancelDelete={this.cancelDelete} commentId={this.props.comment.pk} postId={this.props.postId} user={this.props.username} parentid={this.props.comment.fields.parent_id}/>
             )
             : (
               null
@@ -347,7 +302,7 @@ export default class Comment extends React.Component {
         !this.state.showEdit
         ? (
           <div className="comment_text">
-          <span style={commentLabelStyle}>{this.props.comment.fields.comment}</span>
+          <span >{this.props.comment.fields.comment}</span>
           </div>
         ) : (
           <div className="comment_reply_links" ref={(element) => {this.editMenu = element;}}>
@@ -365,12 +320,10 @@ export default class Comment extends React.Component {
         )
         : (
           <div className="comment_reply_links">
-          <a onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)} style={commentLinkStyle}>Comments</a>
+          <a onClick={this.getComments.bind(this, this.props.comment.pk, this.props.postId)}>Comments</a>
           <a onClick={this.clickReply.bind(this)}>Reply</a>
-
           <div className="menus_list">
           <button className="menus" onClick={this.showMenu}></button>
-
           {
             this.state.showMenu
             ? (
