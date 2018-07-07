@@ -6,7 +6,7 @@ import Menus from './Menus.jsx';
 import Reply from './Reply.jsx';
 import Edit from './Edit.jsx';
 import DialogBox from './DialogBox.jsx';
-
+import UserInfo from './UserInfo.jsx';
 
 export default class Comment extends React.Component {
 
@@ -286,14 +286,10 @@ export default class Comment extends React.Component {
       </div>
 
       <div>
-      <div id="div1">
-      <img src={'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile} className="profile_photo_img" />
-      </div>
-      <div id="div2">
-      <span className="user_name">{this.props.comment.fields.userFullName}</span>
-      <br/>
-      <span className="comment_timestamp">{this.getDate(this.props.comment.fields.date_modified)}</span>
-      </div>
+
+      <UserInfo src={'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile} username={this.props.comment.fields.userFullName}
+      timestamp={this.getDate(this.props.comment.fields.date_modified)}/>
+
       </div>
 
       <div className="comment">
