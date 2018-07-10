@@ -8,6 +8,7 @@ import Edit from './Edit.jsx';
 import DialogBox from './DialogBox.jsx';
 import UserInfo from './UserInfo.jsx';
 
+
 export default class Comment extends React.Component {
 
   constructor() {
@@ -286,10 +287,7 @@ export default class Comment extends React.Component {
       </div>
 
       <div>
-
-      <UserInfo src={'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile} username={this.props.comment.fields.userFullName}
-      timestamp={this.getDate(this.props.comment.fields.date_modified)}/>
-
+          <UserInfo src = {'http://127.0.0.1:8000/media/' +this.props.comment.fields.profile} username={this.props.comment.fields.userFullName} timestamp={this.getDate(this.props.comment.fields.date_modified)}/>
       </div>
 
       <div className="comment">

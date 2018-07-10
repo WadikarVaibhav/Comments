@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom';
 
 export default class Posts extends React.Component {
   constructor() {
@@ -15,6 +15,13 @@ export default class Posts extends React.Component {
   componentDidMount() {
     console.log(this.props.location.state.user)
     this.getAllPosts(this.props.location.state.user);
+  }
+
+  isUserLoggedIn(user) {
+    if (user != undefined) {
+      return true;
+    }
+    return false;
   }
 
   getAllPosts(username) {
@@ -38,18 +45,29 @@ export default class Posts extends React.Component {
   }
 
 
-render() {
+  render() {
 
-  console.log(this.state.user);
+    console.log(this.state.user);
+    var isLoggedIn = this.isUserLoggedIn(this.props.location.state);
 
-  var postList = this.state.posts.map(function (post) {
-    return <li key= {post.pk}><Link to={{ pathname: '/posts/'+post.pk, state: { id: post.pk, post: post.fields.post, user: this.props.location.state.user, profilePicture: this.state.user} }}> {post.fields.post} </Link></li>
-  }, this)
+    var postList = this.state.posts.map(function (post) {
+      return <li key= {post.pk}><Link to={{ pathname: '/posts/'+post.pk, state: { id: post.pk, post: post.fields.post, user: this.props.location.state.user, profilePicture: this.state.user} }}> {post.fields.post} </Link></li>
+    }, this)
 
-  return (
-    <div>
-      {postList}
-    </div>
-  );
+    return (
+        <div>
+         {
+            !isLoggedIn
+              ? (
+                <Redirect to="/login" />
+                )
+              : (
+                <div>
+                  {postList}
+                </div>
+              )
+          }
+        </div>
+    );
+    }
   }
-}
