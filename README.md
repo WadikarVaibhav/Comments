@@ -24,7 +24,7 @@ Designed hierarchical comments section where user can comment upto any depth on 
 1. Run python manage.py runserver in project directory to up the server.
 2. Run npm start to host your application on  http://localhost:8080/
 3. Navigate to http://localhost:8080/signUp to create new user profile and simply login to add new post.
-4. Once the post is added, it will take you to it's details to view the comments on it.
-5. Finally, start adding new comment, replying on it, etc.
+4. Once the post is added, it will take you to it's details to view comments on it.
+5. Finally, start adding new comment, replying it, etc.
 
 
