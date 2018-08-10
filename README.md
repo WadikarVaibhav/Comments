@@ -1,6 +1,6 @@
 # Hierarchical Comments Section
 
-Designed hierarchical comments section to comment upto any depth on a perticular post.
+Designed and implemented hierarchical comments section to comment till any depth.
 
 # Technologies
 
