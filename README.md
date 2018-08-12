@@ -17,7 +17,7 @@ Designed and implemented hierarchical comments section to comment till any depth
 
 # Editor
 
-1. Any editor can be used I would prefer using **Atom** or **Visual Studio Code**.
+1. Any editor can be used but I would prefer using **Atom** or **Visual Studio Code**.
 
 # Execution Steps
 
