@@ -1,6 +1,6 @@
 # Hierarchical Comments Section
 
-Designed and implemented hierarchical comment section to comment till any depth.
+Designed and implemented hierarchical comment section to comment upto any depth.
 
 # Technologies
 
