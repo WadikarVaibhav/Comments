@@ -21,7 +21,7 @@ ReactDOM.render(
       <Home>
         <Route path = "/login" component = {Login}></Route>
         <Route path = "/signUp" component = {SignUp}></Route>
-        <Route exact path = "/posts"  component = {Posts}></Route>
+        <Route exact path = "/posts" component = {Posts}></Route>
         <Route path = "/posts/:id" component = {PostDetails}></Route>
       </Home>
     </Router>, document.getElementById('container'))
