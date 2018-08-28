@@ -74,6 +74,7 @@ export default class PostDetails extends React.Component {
    }
 
    render() {
+     console.log(this.props);
      var parentComments = this.state.parentComments;
      var postId = this.props.match.params.id;
      var state = this.props.location.state
@@ -88,7 +89,7 @@ export default class PostDetails extends React.Component {
            : (
              <div>
                <br/>
-               {this.props.location.state.post}
+               <img src = {'http://127.0.0.1:8000/media/'+this.props.location.state.post} className="posts_photo_img"/>
                <br/>
                <br/>
                <a onClick={this.getParentComments.bind(this, 0, postId)} style={{cursor: 'pointer', color: "#0000FF", textDecoration: 'underline'}}>comments</a>

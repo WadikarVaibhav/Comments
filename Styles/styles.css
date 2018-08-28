@@ -3,7 +3,11 @@
   width: 30px;
   border-radius: 50%;
   margin-right: 5px;
+}
 
+.posts_photo_img {
+  height: 400px;
+  width: 500px;
 }
 
 .img {
