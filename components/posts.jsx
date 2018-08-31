@@ -13,7 +13,6 @@ export default class Posts extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props.location.state.user)
     this.getAllPosts(this.props.location.state.user);
   }
 
@@ -47,11 +46,11 @@ export default class Posts extends React.Component {
 
 render() {
 
-    console.log(this.state.posts);
+    console.log('all posts: '+JSON.stringify(this.state.posts));
     var isLoggedIn = this.isUserLoggedIn(this.props.location.state);
 
     var postList = this.state.posts.map(function (post) {
-      return <li key= {post.pk}><Link to={{ pathname: '/posts/'+post.pk, state: { id: post.pk, post: post.fields.post, user: this.props.location.state.user, profilePicture: this.state.user} }}> <img src = {'http://127.0.0.1:8000/media/'+post.fields.post} className="posts_photo_img"/></Link></li>
+      return <li key= {post.pk}><Link to={{ pathname: '/posts/'+post.pk, state: { id: post.pk, post: post.fields.post, user: this.props.location.state.user, profilePicture: this.state.user, postUser: post.fields.user_id, postDate: post.fields.date_created } }}> <img src = {'http://127.0.0.1:8000/media/'+post.fields.post} className="posts_photo_img"/></Link></li>
     }, this)
 
     return (

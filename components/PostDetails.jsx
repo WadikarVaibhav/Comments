@@ -1,7 +1,9 @@
 import React from 'react';
 import $ from 'jquery';
 import Comments from './Comments.jsx';
-import { Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import UserInfo from './UserInfo.jsx';
+
 
 export default class PostDetails extends React.Component {
 
@@ -74,7 +76,7 @@ export default class PostDetails extends React.Component {
    }
 
    render() {
-     console.log(this.props);
+     console.log('user info: '+ JSON.stringify(this.props));
      var parentComments = this.state.parentComments;
      var postId = this.props.match.params.id;
      var state = this.props.location.state
@@ -87,15 +89,24 @@ export default class PostDetails extends React.Component {
              <Redirect to="/login" />
              )
            : (
-             <div>
-               <br/>
+             <div className="main">
+               <div className="post_main">
+               <div>
+                  <UserInfo src = {'http://127.0.0.1:8000/media/' +profilePicture} username={'Vaibhav Wadikar'} />
+              </div>
+
                <img src = {'http://127.0.0.1:8000/media/'+this.props.location.state.post} className="posts_photo_img"/>
+                  <div>
+                    <a onClick={this.getParentComments.bind(this, 0, postId)} className="comment_div">Comments</a>
+                  </div>
+                  <div>
+                    <a onClick={this.getParentComments.bind(this, 0, postId)}  className="like_div">Like</a>
+                  </div>
+               </div>
+               
                <br/>
                <br/>
-               <a onClick={this.getParentComments.bind(this, 0, postId)} style={{cursor: 'pointer', color: "#0000FF", textDecoration: 'underline'}}>comments</a>
-               <br/>
-               <br/>
-               <div className="main">
+               <div >
                  <div >
                    <img src={'http://127.0.0.1:8000/media/' +profilePicture} className="profile_photo_img" />
                  </div>
@@ -107,7 +118,6 @@ export default class PostDetails extends React.Component {
                </div>
              </div>
              )
-
      );
    }
  }

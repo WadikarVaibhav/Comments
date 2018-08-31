@@ -3,11 +3,11 @@ from datetime import datetime
 
 class Users(models.Model):
     user_id = models.AutoField(primary_key = True)
-    user_name = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
-    firstname = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
-    lastname = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
-    password = models.CharField(max_length = 20, null =False, blank=False, default='abc@gmail.com')
-    emailId = models.CharField(max_length = 30, null =False, blank=False, default='abc@gmail.com')
+    user_name = models.CharField(max_length = 20, null =False, blank=False, default='')
+    firstname = models.CharField(max_length = 20, null =False, blank=False, default='')
+    lastname = models.CharField(max_length = 20, null =False, blank=False, default='')
+    password = models.CharField(max_length = 20, null =False, blank=False, default='')
+    emailId = models.CharField(max_length = 30, null =False, blank=False, default='')
     picture = models.FileField(blank=True, null=True)
 
     def __str__(self):
@@ -17,8 +17,7 @@ class Posts(models.Model):
     post_id = models.AutoField(primary_key = True)
     post = models.FileField(blank=True, null=True)
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)
-    date_created = models.DateTimeField( editable=False, default=datetime.now()) 
-
+    date_created = models.DateTimeField( editable=False, default=datetime.now())
 
 class Comments(models.Model):
     user_id = models.ForeignKey(Users, on_delete=models.CASCADE)

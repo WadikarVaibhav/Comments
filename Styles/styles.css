@@ -7,7 +7,18 @@
 
 .posts_photo_img {
   height: 400px;
-  width: 500px;
+  width: 505px;
+  border-radius: 3px;
+}
+
+.post_main {
+  border: 1px solid lightgrey;
+  width: 469px;
+  padding-left: 16px;
+  padding-right: 57px;
+  padding-top: 12px;
+  padding-bottom: 31px;
+  border-radius: 3px;
 }
 
 .img {
@@ -39,7 +50,7 @@ margin-left: 31px;
 }
 
 .main {
-  width: 38%;
+  width: 48%;
   padding-bottom: 18px;
   padding-top: 18px;
   border: 0px solid lightgrey;
@@ -161,16 +172,40 @@ margin-left: 31px;
   background: #3e78ad;
   color: #fff;
   text-align: center;
-  font-size: 13px;
+  font-size: 14px;
   display: inline-block;
   font-weight: 500;
   outline-color: initial;
   outline-style: initial;
   outline-width: 0px;
-  height: 27px;
-  width: 79px;
+  height: 32px;
+  width: 93px;
   border-radius: 3px;
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+
+.like_div {
+  font-weight: 600;
+    line-height: 14px;
+    color: #616770;
+    font-size: 14px;
+    float: left;
+    padding-left: 60px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding-top: 5px;
+
+}
+
+.comment_div {
+  font-weight: 600;
+    line-height: 14px;
+    color: #616770;
+    font-size: 14px;
+    float: right;
+    padding-right: 34px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding-top: 5px;
+
 }
 
 a:hover {
@@ -186,9 +221,9 @@ a:hover {
     tab-size: 4;
     word-wrap: break-word;
     color: #333;
-        width: 321px;
-    height: 23px;
-    margin-right: 8px;
+    width: 394px;
+    height: 28px;
+    margin-right: 12px;
     border: 1px solid lightgrey;
     margin-left: 11px;
         margin-top: 3px;
