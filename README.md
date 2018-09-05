@@ -1,6 +1,7 @@
 # Hierarchical Comments Section
 
-Designed and implemented hierarchical comment section to comment upto any depth.
+Hierarchical comments section is a web application used as a discussion portal in social network.
+The application allows users to post unlimited number of replies to a particular comment keeping the hierarchy.
 
 # Technologies
 
