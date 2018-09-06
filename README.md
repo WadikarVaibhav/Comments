@@ -2,7 +2,7 @@
 
 Hierarchical comments section is a web application used as a discussion portal in social network.
 The application allows users to post unlimited number of replies to a particular comment keeping the hierarchy.
-Project implements a user model to keep track of comment's details such as owner, details, time-stamp, etc. 
+Project implements a user model to keep track of comment's details such as owner, time-stamp, etc. 
 User needs to signup first and log in to it in order to start commenting on posts. A comment can be deleted or edited by authorized users only.
 
 # Technologies
