@@ -8,8 +8,9 @@ User needs to signup first and log in to it in order to start commenting on post
 # Technologies
 
 1. ReactJS
-2. Django
-3. PostgreSQL
+2. jQuery
+3. Django
+4. PostgreSQL
 
 # Installation Steps
 
