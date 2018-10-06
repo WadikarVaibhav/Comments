@@ -4,7 +4,7 @@ import Login from './Login.jsx';
 import SignUp from './SignUp.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, browserHistory, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, browserHistory, Switch, Redirect} from 'react-router-dom';
 
 class Home extends React.Component {
   render(){
@@ -23,5 +23,6 @@ ReactDOM.render(
         <Route path = "/signUp" component = {SignUp}></Route>
         <Route exact path = "/posts" component = {Posts}></Route>
         <Route path = "/posts/:id" component = {PostDetails}></Route>
+        <Redirect from = "/" to = "/login" />
       </Home>
     </Router>, document.getElementById('container'))
