@@ -1,12 +1,16 @@
 # Hierarchical Comments Section
 
-Designed and implemented hierarchical comment section to comment upto any depth.
+Hierarchical comments section is a web application used as a discussion portal in social networking sites.
+The application allows users to post unlimited number of replies to a comment by keeping all the comments in hierarchical order.
+It implements a user model to keep track of comment's details such as owner, time-stamp, etc. 
+User needs to signup first and log in to it in order to start commenting on posts. A comment can be deleted or edited by authorized users only.
 
 # Technologies
 
 1. ReactJS
-2. Django
-3. PostgreSQL
+2. jQuery
+3. Django
+4. PostgreSQL
 
 # Installation Steps
 
@@ -14,6 +18,9 @@ Designed and implemented hierarchical comment section to comment upto any depth.
 2. Secondly, install Django by ```pip install django```.
 3. Finally, download PostgreSQL database client - ```pgAdmin```.
 
+# Scope
+
+Scope of the project is to make reusable component as a node_module which can be included into existing ReactJS project.
 
 # Editor
 
