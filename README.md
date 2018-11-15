@@ -14,9 +14,9 @@ User needs to signup first and log in to it in order to start commenting on post
 
 # Installation Steps
 
-1. First of all, install ReactJs by running ```npm install --save``` in project directory.
-2. Secondly, install Django by ```pip install django```.
-3. Finally, download PostgreSQL database client - ```pgAdmin```.
+1. First of all, install ReactJs by running ```npm install --save``` in project directory
+2. Secondly, install Django by ```pip install django```
+3. Finally, download PostgreSQL database client - ```pgAdmin```
 
 # Scope
 
