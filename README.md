@@ -1,4 +1,4 @@
-# Hierarchical Comments Section
+# Hierarchical Comments
 
 Hierarchical comments section is a web application used as a discussion portal in social networking sites.
 The application allows users to post unlimited number of replies to a comment by keeping all the comments in hierarchical order.
