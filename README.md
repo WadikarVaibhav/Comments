@@ -5,7 +5,7 @@ The application allows users to post unlimited number of replies to a comment by
 It implements an user model to keep track of comment's details such as owner-info, time-stamp, etc. 
 User needs to signup first in order to start commenting on posts. A comment can be deleted or edited by authorized users only.
 
-# Technologies Used
+# Technologies
 
 1. ReactJS
 2. jQuery
